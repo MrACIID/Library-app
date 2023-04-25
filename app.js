@@ -1,9 +1,13 @@
 const cardContainer = document.querySelector(".cardContainer");
 
-const myLibrary = [];
+const myLibrary = [
+  { title: "test", author: "moi", pages: "50" },
+  { title: "testaaaa", author: "moi", pages: "50" },
+  { title: "testaaaa", author: "moi", pages: "50" },
+];
 
-function displayBook(title, author, pages) {
-  cardContainer.innerHTML += `<div class="bookCard">
+function displayBook(title, author, pages, index) {
+  cardContainer.innerHTML += `<div class="bookCard" data-attribute=${index}>
   <div class="info">
     <div class="title">${title}</div>
     <div class="author">${author}</div>
@@ -15,6 +19,10 @@ function displayBook(title, author, pages) {
 </div>`;
 }
 
+function showForm() {
+  document.getElementById("formElement").style.display = "flex";
+}
+
 function Book(title, author, pages) {
   this.title = title;
   this.author = author;
@@ -22,8 +30,9 @@ function Book(title, author, pages) {
 }
 
 function addBookToLibrary() {
-  myLibrary.push(new Book("test", "moi", "50"), new Book("a", "b", "z"));
-  myLibrary.forEach((book) => displayBook(book.title, book.author, book.pages));
+  myLibrary.forEach((book) =>
+    displayBook(book.title, book.author, book.pages, myLibrary.indexOf(book))
+  );
 }
 
 addBookToLibrary();

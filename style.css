@@ -3,6 +3,20 @@ body {
     margin-left: auto;
 }
 
+.formContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 200px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#formElement {
+    flex-direction: column;
+    text-align: center;
+}
+
 .cardContainer {
     margin-top: 200px;
     display: flex;

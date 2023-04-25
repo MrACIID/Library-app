@@ -9,7 +9,20 @@
     <script src="app.js" defer></script>
   </head>
   <body>
-    <div></div>
+    <div>
+      <div class="formContainer">
+        <button onclick="showForm()">add a new book</button>
+        <form id="formElement" style="display: none">
+          <label for="title">TITLE</label>
+          <input type="text" id="title" />
+          <label for="author">AUTHOR</label>
+          <input type="text" id="author" />
+          <label for="pages">PAGES</label>
+          <input type="text" id="pages" />
+          <button>SUBMIT</button>
+        </form>
+      </div>
+    </div>
     <div class="cardContainer"></div>
   </body>
 </html>
