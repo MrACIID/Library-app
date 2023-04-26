@@ -1,13 +1,16 @@
 body {
     margin-right: auto;
     margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
 }
 
 .formContainer {
     display: flex;
-    justify-content: center;
     flex-direction: column;
     max-width: 200px;
+    height: 159px;
     margin-right: auto;
     margin-left: auto;
 }
@@ -18,7 +21,6 @@ body {
 }
 
 .cardContainer {
-    margin-top: 200px;
     display: flex;
     justify-content: center;
     gap: 30px;

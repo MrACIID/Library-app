@@ -1,12 +1,12 @@
 const cardContainer = document.querySelector(".cardContainer");
+const newbookTitle = document.getElementById("title");
+const newbookAuthor = document.getElementById("author");
+const newbookPages = document.getElementById("pages");
+const submitBtn = document.querySelector(".submit");
 
-const myLibrary = [
-  { title: "test", author: "moi", pages: "50" },
-  { title: "testaaaa", author: "moi", pages: "50" },
-  { title: "testaaaa", author: "moi", pages: "50" },
-];
+const myLibrary = [{ title: "test", author: "moi", pages: "50" }];
 
-function displayBook(title, author, pages, index) {
+function addbooktoLibrary(title, author, pages, index) {
   cardContainer.innerHTML += `<div class="bookCard" data-attribute=${index}>
   <div class="info">
     <div class="title">${title}</div>
@@ -29,12 +29,35 @@ function Book(title, author, pages) {
   this.pages = pages;
 }
 
-function addBookToLibrary() {
-  myLibrary.forEach((book) =>
-    displayBook(book.title, book.author, book.pages, myLibrary.indexOf(book))
+submitBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const newBook = new Book(
+    newbookTitle.value,
+    newbookAuthor.value,
+    newbookPages.value
   );
-}
+  myLibrary.push(newBook);
+  addbooktoLibrary(
+    newbookTitle.value,
+    newbookAuthor.value,
+    newbookPages.value,
+    myLibrary.indexOf(newBook)
+  );
+  console.log(myLibrary);
+});
 
-addBookToLibrary();
+function existingBooks() {
+  if (myLibrary.length > 0) {
+    myLibrary.forEach((book) =>
+      addbooktoLibrary(
+        book.title,
+        book.author,
+        book.pages,
+        myLibrary.indexOf(book)
+      )
+    );
+  }
+}
+existingBooks();
 
 console.log(myLibrary);
