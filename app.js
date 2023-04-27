@@ -4,24 +4,14 @@ const newbookAuthor = document.getElementById("author");
 const newbookPages = document.getElementById("pages");
 const submitBtn = document.querySelector(".submit");
 
-const myLibrary = [{ title: "test", author: "moi", pages: "50" }];
-
-function addbooktoLibrary(title, author, pages, index) {
-  cardContainer.innerHTML += `<div class="bookCard" data-attribute=${index}>
-  <div class="info">
-    <div class="title">${title}</div>
-    <div class="author">${author}</div>
-    <div class="pages">${pages}</div>
-  </div>
-  <div class="doneReading">
-    <button>done reading ?</button>
-  </div>
-</div>`;
-}
-
 function showForm() {
   document.getElementById("formElement").style.display = "flex";
 }
+
+const myLibrary = [
+  { title: "test", author: "moi", pages: "50" },
+  { title: "test", author: "moi", pages: "50" },
+];
 
 function Book(title, author, pages) {
   this.title = title;
@@ -37,27 +27,54 @@ submitBtn.addEventListener("click", (e) => {
     newbookPages.value
   );
   myLibrary.push(newBook);
-  addbooktoLibrary(
-    newbookTitle.value,
-    newbookAuthor.value,
-    newbookPages.value,
-    myLibrary.indexOf(newBook)
-  );
-  console.log(myLibrary);
 });
 
-function existingBooks() {
-  if (myLibrary.length > 0) {
-    myLibrary.forEach((book) =>
-      addbooktoLibrary(
-        book.title,
-        book.author,
-        book.pages,
-        myLibrary.indexOf(book)
-      )
-    );
-  }
-}
-existingBooks();
+function createBook(title, author, pages, index) {
+  const bookCard = document.createElement("div");
+  bookCard.classList.add("bookCard");
+  bookCard.setAttribute("data-attribute", index);
+  cardContainer.appendChild(bookCard);
 
-console.log(myLibrary);
+  const edit = document.createElement("div");
+  edit.classList.add("edit");
+  bookCard.appendChild(edit);
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("deleteBtn");
+  deleteBtn.textContent = "delete";
+  edit.appendChild(deleteBtn);
+
+  const info = document.createElement("div");
+  info.classList.add("info");
+  bookCard.appendChild(info);
+
+  const bookTitle = document.createElement("div");
+  bookTitle.classList.add("title");
+  bookTitle.textContent = title;
+  info.appendChild(bookTitle);
+
+  const bookAuthor = document.createElement("div");
+  bookAuthor.classList.add("author");
+  bookAuthor.textContent = author;
+  info.appendChild(bookAuthor);
+
+  const bookPages = document.createElement("div");
+  bookPages.classList.add("pages");
+  bookPages.textContent = pages;
+  info.appendChild(bookPages);
+
+  const doneReading = document.createElement("div");
+  doneReading.classList.add("doneReading");
+  bookCard.appendChild(doneReading);
+
+  const readBtn = document.createElement("button");
+  readBtn.textContent = "done reading ?";
+  doneReading.appendChild(readBtn);
+}
+
+function displayAllBooks() {
+  myLibrary.forEach((book) =>
+    createBook(book.title, book.author, book.pages, myLibrary.indexOf(book))
+  );
+}
+displayAllBooks();
