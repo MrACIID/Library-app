@@ -8,26 +8,13 @@ function showForm() {
   document.getElementById("formElement").style.display = "flex";
 }
 
-const myLibrary = [
-  { title: "test", author: "moi", pages: "50" },
-  { title: "test", author: "moi", pages: "50" },
-];
+const myLibrary = [];
 
 function Book(title, author, pages) {
   this.title = title;
   this.author = author;
   this.pages = pages;
 }
-
-submitBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  const newBook = new Book(
-    newbookTitle.value,
-    newbookAuthor.value,
-    newbookPages.value
-  );
-  myLibrary.push(newBook);
-});
 
 function createBook(title, author, pages, index) {
   const bookCard = document.createElement("div");
@@ -43,6 +30,11 @@ function createBook(title, author, pages, index) {
   deleteBtn.classList.add("deleteBtn");
   deleteBtn.textContent = "delete";
   edit.appendChild(deleteBtn);
+  deleteBtn.addEventListener("click", () => {
+    myLibrary.splice(index, 1);
+    bookCard.remove();
+    console.log(myLibrary);
+  });
 
   const info = document.createElement("div");
   info.classList.add("info");
@@ -72,9 +64,31 @@ function createBook(title, author, pages, index) {
   doneReading.appendChild(readBtn);
 }
 
+function updateLib(newBook) {
+  createBook(
+    newBook.title,
+    newBook.author,
+    newBook.pages,
+    myLibrary.indexOf(newBook)
+  );
+}
+
+submitBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const newBook = new Book(
+    newbookTitle.value,
+    newbookAuthor.value,
+    newbookPages.value
+  );
+  myLibrary.push(newBook);
+  console.log(myLibrary);
+  updateLib(newBook);
+});
+
 function displayAllBooks() {
-  myLibrary.forEach((book) =>
+  myLibrary.map((book) =>
     createBook(book.title, book.author, book.pages, myLibrary.indexOf(book))
   );
+  console.log(myLibrary);
 }
 displayAllBooks();
